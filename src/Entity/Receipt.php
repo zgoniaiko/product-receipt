@@ -24,7 +24,7 @@ class Receipt
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $status;
+    private $status = 'open';
 
     /**
      * @ORM\OneToMany(targetEntity=ReceiptProduct::class, mappedBy="receiptId", orphanRemoval=true)

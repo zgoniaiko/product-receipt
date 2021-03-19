@@ -22,22 +22,22 @@ class Product
     /**
      * @ORM\Column(type="string", length=13)
      */
-    private $barcode;
+    private $barcode = '';
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $name = '';
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2)
      */
-    private $cost;
+    private $cost = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $vatClass;
+    private $vatClass = 0;
 
     public function getId(): ?int
     {
