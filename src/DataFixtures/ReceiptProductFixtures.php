@@ -2,8 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Product;
-use App\Entity\Receipt;
 use App\Entity\ReceiptProduct;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
