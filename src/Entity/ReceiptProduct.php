@@ -104,23 +104,9 @@ class ReceiptProduct
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function getCost(): ?string
     {
         return $this->cost;
-    }
-
-    public function setCost(string $cost): self
-    {
-        $this->cost = $cost;
-
-        return $this;
     }
 
     public function getAmount(): ?string
@@ -138,13 +124,6 @@ class ReceiptProduct
     public function getVatClass(): ?int
     {
         return $this->vatClass;
-    }
-
-    public function setVatClass(int $vatClass): self
-    {
-        $this->vatClass = $vatClass;
-
-        return $this;
     }
 
     public function getSubTotal(): ?string
