@@ -18,21 +18,15 @@ class ReceiptProductFixtures extends Fixture implements DependentFixtureInterfac
         $coffee = $this->getReference(ProductFixtures::PRODUCT_COFFEE);
         $cup = $this->getReference(ProductFixtures::PRODUCT_CUP);
 
-        $receiptFinishedTea = (new ReceiptProduct())
-            ->setReceipt($receiptFinished)
-            ->setProduct($tea)
+        $receiptFinishedTea = (new ReceiptProduct($receiptFinished, $tea))
             ->setAmount(2);
         $manager->persist($receiptFinishedTea);
 
-        $receiptOpenCoffee = (new ReceiptProduct())
-            ->setReceipt($receiptOpen)
-            ->setProduct($coffee)
+        $receiptOpenCoffee = (new ReceiptProduct($receiptOpen, $coffee))
             ->setAmount(1);
         $manager->persist($receiptOpenCoffee);
 
-        $receiptOpenCup = (new ReceiptProduct())
-            ->setReceipt($receiptOpen)
-            ->setProduct($cup)
+        $receiptOpenCup = (new ReceiptProduct($receiptOpen, $cup))
             ->setAmount(2);
         $manager->persist($receiptOpenCup);
 

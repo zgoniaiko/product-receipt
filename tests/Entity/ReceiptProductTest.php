@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Product;
+use App\Entity\Receipt;
 use App\Entity\ReceiptProduct;
 use PHPUnit\Framework\TestCase;
 
@@ -10,7 +11,15 @@ class ReceiptProductTest extends TestCase
 {
     public function testAccessors(): void
     {
-        $receiptProduct = new ReceiptProduct();
+        $receipt = $this->createMock(Receipt::class);
+        $receipt->method('getId')->willReturn(1);
+
+        $tea = $this->createMock(Product::class);
+        $tea->method('getName')->willReturn('tea');
+        $tea->method('getCost')->willReturn('1.01');
+        $tea->method('getVatClass')->willReturn(6);
+
+        $receiptProduct = new ReceiptProduct($receipt, $tea);
 
         $amount = 2;
         self::assertEquals(0, $receiptProduct->getAmount(), "amount of product should be 0");
@@ -35,18 +44,15 @@ class ReceiptProductTest extends TestCase
 
     public function testProductPropertiesCopied(): void
     {
+        $receipt = $this->createMock(Receipt::class);
+        $receipt->method('getId')->willReturn(1);
+
         $tea = $this->createMock(Product::class);
         $tea->method('getName')->willReturn('tea');
         $tea->method('getCost')->willReturn('1.01');
         $tea->method('getVatClass')->willReturn(6);
 
-        $receiptProduct = new ReceiptProduct();
-        self::assertNull($receiptProduct->getProduct(), "product should be null");
-        self::assertNull($receiptProduct->getName(), "product name should be empty");
-        self::assertNull($receiptProduct->getCost(), "product cost should be empty");
-        self::assertNull($receiptProduct->getVatClass(), "product vat class should be empty");
-
-        $receiptProduct->setProduct($tea);
+        $receiptProduct = new ReceiptProduct($receipt, $tea);
         self::assertSame($tea, $receiptProduct->getProduct(), "should return link to product");
         self::assertSame($tea->getName(), $receiptProduct->getName(), "should return product name");
         self::assertSame($tea->getCost(), $receiptProduct->getCost(), "should return product cost");

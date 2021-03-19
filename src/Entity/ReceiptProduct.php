@@ -66,6 +66,16 @@ class ReceiptProduct
      */
     private $total = 0;
 
+    public function __construct(Receipt $receipt, Product $product)
+    {
+        $this->receipt = $receipt;
+        $this->product = $product;
+
+        $this->name = $product->getName();
+        $this->cost = $product->getCost();
+        $this->vatClass = $product->getVatClass();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,27 +86,9 @@ class ReceiptProduct
         return $this->receipt;
     }
 
-    public function setReceipt(?Receipt $receipt): self
-    {
-        $this->receipt = $receipt;
-
-        return $this;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
-    }
-
-    public function setProduct(Product $product): self
-    {
-        $this->product = $product;
-
-        $this->name = $product->getName();
-        $this->cost = $product->getCost();
-        $this->vatClass = $product->getVatClass();
-
-        return $this;
     }
 
     public function getName(): ?string
