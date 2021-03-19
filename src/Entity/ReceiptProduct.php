@@ -44,7 +44,7 @@ class ReceiptProduct
     /**
      * @ORM\Column(type="decimal", precision=6, scale=3)
      */
-    private $amount;
+    private $amount = 0;
 
     /**
      * @ORM\Column(type="integer")
@@ -54,17 +54,17 @@ class ReceiptProduct
     /**
      * @ORM\Column(type="decimal", precision=15, scale=2)
      */
-    private $subTotal;
+    private $subTotal = 0;
 
     /**
      * @ORM\Column(type="decimal", precision=15, scale=2)
      */
-    private $vat;
+    private $vat = 0;
 
     /**
      * @ORM\Column(type="decimal", precision=15, scale=2)
      */
-    private $total;
+    private $total = 0;
 
     public function getId(): ?int
     {
