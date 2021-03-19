@@ -65,7 +65,7 @@ class Receipt
     {
         if (!$this->receiptProducts->contains($receiptProduct)) {
             $this->receiptProducts[] = $receiptProduct;
-            $receiptProduct->setReceiptId($this);
+            $receiptProduct->setReceipt($this);
         }
 
         return $this;
@@ -75,8 +75,8 @@ class Receipt
     {
         if ($this->receiptProducts->removeElement($receiptProduct)) {
             // set the owning side to null (unless already changed)
-            if ($receiptProduct->getReceiptId() === $this) {
-                $receiptProduct->setReceiptId(null);
+            if ($receiptProduct->getReceipt() === $this) {
+                $receiptProduct->setReceipt(null);
             }
         }
 

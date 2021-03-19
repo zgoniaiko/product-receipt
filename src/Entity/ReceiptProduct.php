@@ -23,13 +23,13 @@ class ReceiptProduct
      * @ORM\ManyToOne(targetEntity=Receipt::class, inversedBy="receiptProducts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $receiptId;
+    private $receipt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $productId;
+    private $product;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -71,26 +71,26 @@ class ReceiptProduct
         return $this->id;
     }
 
-    public function getReceiptId(): ?Receipt
+    public function getReceipt(): ?Receipt
     {
-        return $this->receiptId;
+        return $this->receipt;
     }
 
-    public function setReceiptId(?Receipt $receiptId): self
+    public function setReceipt(?Receipt $receipt): self
     {
-        $this->receiptId = $receiptId;
+        $this->receipt = $receipt;
 
         return $this;
     }
 
-    public function getProductId(): ?Product
+    public function getProduct(): ?Product
     {
-        return $this->productId;
+        return $this->product;
     }
 
-    public function setProductId(?Product $productId): self
+    public function setProduct(?Product $product): self
     {
-        $this->productId = $productId;
+        $this->product = $product;
 
         return $this;
     }
