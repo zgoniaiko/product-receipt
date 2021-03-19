@@ -92,6 +92,10 @@ class ReceiptProduct
     {
         $this->product = $product;
 
+        $this->name = $product->getName();
+        $this->cost = $product->getCost();
+        $this->vatClass = $product->getVatClass();
+
         return $this;
     }
 
