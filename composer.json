@@ -1,6 +1,8 @@
 {
+    "name": "zgoniaiko/product-receipt",
+    "description": "API for product's receipts",
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
