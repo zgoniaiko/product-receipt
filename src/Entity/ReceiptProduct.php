@@ -119,6 +119,7 @@ class ReceiptProduct
     public function setAmount(string $amount): self
     {
         $this->amount = $amount;
+        $this->calculate();
 
         return $this;
     }
@@ -162,5 +163,12 @@ class ReceiptProduct
         $this->total = $total;
 
         return $this;
+    }
+
+    protected function calculate()
+    {
+        $this->subTotal = $this->amount * $this->getCost();
+        $this->vat = round($this->subTotal * $this->getVatClass() / 100, 2);
+        $this->total = $this->subTotal + $this->vat;
     }
 }
