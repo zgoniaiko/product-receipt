@@ -59,6 +59,24 @@ class ReceiptsTest extends ApiTestCase
         ]);
     }
 
+    public function testReceiptAddProduct(): void
+    {
+        $response = static::createClient()->request('PUT', '/api/receipts/2/add-product', ['json' => [
+            'barcode' => '0026102689783',
+        ]]);
+
+        self::assertResponseStatusCodeSame(200);
+
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertJsonContains([
+             '@context' => '/api/contexts/Receipt',
+             '@type' => 'Receipt',
+             'status' => 'open',
+        ]);
+        self::assertRegExp('~^/api/receipts/\d+$~', $response->toArray()['@id']);
+        self::assertMatchesResourceItemJsonSchema(Receipt::class);
+    }
+
     public function testFihishReceipt(): void
     {
         $response = static::createClient()->request('PUT', '/api/receipts/2/finish', ['json' => [
@@ -75,5 +93,4 @@ class ReceiptsTest extends ApiTestCase
         self::assertRegExp('~^/api/receipts/\d+$~', $response->toArray()['@id']);
         self::assertMatchesResourceItemJsonSchema(Receipt::class);
     }
-
 }
