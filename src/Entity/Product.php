@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -20,6 +21,7 @@ class Product
     private $barcode;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $name = '';
@@ -30,6 +32,7 @@ class Product
     private $cost = 0;
 
     /**
+     * @Assert\Regex("/^6|21/", message="This value should be either 6 or 21.")
      * @ORM\Column(type="integer")
      */
     private $vatClass = 0;
