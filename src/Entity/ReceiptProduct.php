@@ -134,23 +134,9 @@ class ReceiptProduct
         return $this->subTotal;
     }
 
-    public function setSubTotal(string $subTotal): self
-    {
-        $this->subTotal = $subTotal;
-
-        return $this;
-    }
-
     public function getVat(): ?string
     {
         return $this->vat;
-    }
-
-    public function setVat(string $vat): self
-    {
-        $this->vat = $vat;
-
-        return $this;
     }
 
     public function getTotal(): ?string
@@ -158,14 +144,7 @@ class ReceiptProduct
         return $this->total;
     }
 
-    public function setTotal(string $total): self
-    {
-        $this->total = $total;
-
-        return $this;
-    }
-
-    protected function calculate()
+    protected function calculate(): void
     {
         $this->subTotal = $this->amount * $this->getCost();
         $this->vat = round($this->subTotal * $this->getVatClass() / 100, 2);

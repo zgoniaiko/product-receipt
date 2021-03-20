@@ -25,21 +25,6 @@ class ReceiptProductTest extends TestCase
         self::assertEquals(0, $receiptProduct->getAmount(), "amount of product should be 0");
         $receiptProduct->setAmount($amount);
         self::assertEquals($amount, $receiptProduct->getAmount(), "should return amount of product");
-
-        $subtotal = 10;
-        self::assertEquals(2.02, $receiptProduct->getSubTotal(), "sub-total of product should be 0");
-        $receiptProduct->setSubTotal($subtotal);
-        self::assertEquals($subtotal, $receiptProduct->getSubTotal(), "should return sub-total of product");
-
-        $vat = 2;
-        self::assertEquals(0.12, $receiptProduct->getVat(), "vat of product should be 0");
-        $receiptProduct->setVat($vat);
-        self::assertEquals($vat, $receiptProduct->getVat(), "should return vat of product");
-
-        $total = 12;
-        self::assertEquals(2.14, $receiptProduct->getTotal(), "total of product should be 0");
-        $receiptProduct->setTotal($total);
-        self::assertEquals($total, $receiptProduct->getTotal(), "should return total of product");
     }
 
     public function testProductPropertiesCopied(): void
@@ -70,9 +55,18 @@ class ReceiptProductTest extends TestCase
         $tea->method('getVatClass')->willReturn(6);
 
         $receiptProduct = new ReceiptProduct($receipt, $tea);
+        self::assertEquals(0, $receiptProduct->getSubTotal(), "sub-total of product should be 0");
+        self::assertEquals(0, $receiptProduct->getVat(), "vat of product should be 0");
+        self::assertEquals(0, $receiptProduct->getTotal(), "total of product should be 0");
+
         $receiptProduct->setAmount(1);
-        self::assertEquals(1.01, $receiptProduct->getSubTotal());
-        self::assertEquals(0.06, $receiptProduct->getVat());
-        self::assertEquals(1.07, $receiptProduct->getTotal());
+        self::assertEquals(1.01, $receiptProduct->getSubTotal(), "should return sub-total of product");
+        self::assertEquals(0.06, $receiptProduct->getVat(), "should return vat of product");
+        self::assertEquals(1.07, $receiptProduct->getTotal(), "should return total of product");
+
+        $receiptProduct->setAmount(2);
+        self::assertEquals(2.02, $receiptProduct->getSubTotal(), "should return sub-total of product");
+        self::assertEquals(0.12, $receiptProduct->getVat(), "should return vat of product");
+        self::assertEquals(2.14, $receiptProduct->getTotal(), "should return total of product");
     }
 }
