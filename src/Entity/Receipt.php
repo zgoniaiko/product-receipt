@@ -7,6 +7,7 @@ use App\Repository\ReceiptRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -22,12 +23,13 @@ class Receipt
     private $id;
 
     /**
+     * @Assert\Regex("/^open|finished/", message="This value should be either ""open"" or ""fihished"".")
      * @ORM\Column(type="string", length=255)
      */
     private $status = 'open';
 
     /**
-     * @ORM\OneToMany(targetEntity=ReceiptProduct::class, mappedBy="receiptId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ReceiptProduct::class, mappedBy="receipt", orphanRemoval=true)
      */
     private $receiptProducts;
 
@@ -65,7 +67,6 @@ class Receipt
     {
         if (!$this->receiptProducts->contains($receiptProduct)) {
             $this->receiptProducts[] = $receiptProduct;
-            $receiptProduct->setReceipt($this);
         }
 
         return $this;
@@ -73,12 +74,7 @@ class Receipt
 
     public function removeReceiptProduct(ReceiptProduct $receiptProduct): self
     {
-        if ($this->receiptProducts->removeElement($receiptProduct)) {
-            // set the owning side to null (unless already changed)
-            if ($receiptProduct->getReceipt() === $this) {
-                $receiptProduct->setReceipt(null);
-            }
-        }
+        $this->receiptProducts->removeElement($receiptProduct);
 
         return $this;
     }
