@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\ReceiptFinish;
 use App\Repository\ReceiptRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
+ * @ApiResource(itemOperations={
+ *     "get",
+ *     "finish"={
+ *         "method"="PUT",
+ *         "path"="receipts/{id}/finish",
+ *         "controller"=ReceiptFinish::class,
+ *     }
+ * })
  * @ORM\Entity(repositoryClass=ReceiptRepository::class)
  */
 class Receipt
@@ -51,6 +59,13 @@ class Receipt
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function finish(): self
+    {
+        $this->status = 'finished';
 
         return $this;
     }

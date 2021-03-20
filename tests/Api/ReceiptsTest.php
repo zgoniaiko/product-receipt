@@ -58,4 +58,22 @@ class ReceiptsTest extends ApiTestCase
             'hydra:description' => 'status: This value should be either "open" or "fihished".',
         ]);
     }
+
+    public function testFihishReceipt(): void
+    {
+        $response = static::createClient()->request('PUT', '/api/receipts/2/finish', ['json' => [
+        ]]);
+
+        self::assertResponseStatusCodeSame(200);
+
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertJsonContains([
+             '@context' => '/api/contexts/Receipt',
+             '@type' => 'Receipt',
+             'status' => 'finished',
+        ]);
+        self::assertRegExp('~^/api/receipts/\d+$~', $response->toArray()['@id']);
+        self::assertMatchesResourceItemJsonSchema(Receipt::class);
+    }
+
 }
