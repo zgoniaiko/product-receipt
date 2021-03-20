@@ -9,9 +9,9 @@ class ReceiptFinish
 {
     private $receiptFinishHandler;
 
-    public function __construct(ReceiptFinishHandler $receiptPublishHandler)
+    public function __construct(ReceiptFinishHandler $receiptFinishHandler)
     {
-        $this->receiptFinishHandler = $receiptPublishHandler;
+        $this->receiptFinishHandler = $receiptFinishHandler;
     }
 
     public function __invoke(Receipt $data): Receipt

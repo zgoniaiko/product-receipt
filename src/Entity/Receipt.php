@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "get",
  *     "finish"={
  *         "method"="PUT",
- *         "path"="receipts/{id}/finish",
+ *         "path"="/receipts/{id}/finish",
  *         "controller"=ReceiptFinish::class,
  *     }},
  *     normalizationContext={"groups"={"read"}},
