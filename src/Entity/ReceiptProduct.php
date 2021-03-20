@@ -5,9 +5,12 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ReceiptProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ * )
  * @ORM\Entity(repositoryClass=ReceiptProductRepository::class)
  */
 class ReceiptProduct
@@ -32,36 +35,43 @@ class ReceiptProduct
     private $product;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $cost;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="decimal", precision=6, scale=3)
      */
     private $amount = 0;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="integer")
      */
     private $vatClass;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="decimal", precision=15, scale=2)
      */
     private $subTotal = 0;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="decimal", precision=15, scale=2)
      */
     private $vat = 0;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="decimal", precision=15, scale=2)
      */
     private $total = 0;

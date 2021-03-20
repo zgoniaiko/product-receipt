@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Controller\ReceiptFinish;
 use App\Repository\ReceiptRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(itemOperations={
@@ -17,8 +19,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         "method"="PUT",
  *         "path"="receipts/{id}/finish",
  *         "controller"=ReceiptFinish::class,
- *     }
- * })
+ *     }},
+ *     normalizationContext={"groups"={"read"}},
+ * )
  * @ORM\Entity(repositoryClass=ReceiptRepository::class)
  */
 class Receipt
@@ -31,12 +34,15 @@ class Receipt
     private $id;
 
     /**
+     * @Groups("read")
      * @Assert\Regex("/^open|finished/", message="This value should be either ""open"" or ""fihished"".")
      * @ORM\Column(type="string", length=255)
      */
     private $status = 'open';
 
     /**
+     * @Groups("read")
+     * @ApiSubresource
      * @ORM\OneToMany(targetEntity=ReceiptProduct::class, mappedBy="receipt", orphanRemoval=true)
      */
     private $receiptProducts;
