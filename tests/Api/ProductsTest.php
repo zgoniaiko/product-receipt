@@ -58,15 +58,36 @@ class ProductsTest extends ApiTestCase
             'vatClass' => 20,
         ]]);
 
-        $this->assertResponseStatusCodeSame(422);
-        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseStatusCodeSame(422);
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
 
-        $this->assertJsonContains([
+        self::assertJsonContains([
             '@context' => '/api/contexts/ConstraintViolationList',
             '@type' => 'ConstraintViolationList',
             'hydra:title' => 'An error occurred',
             'hydra:description' => 'name: This value should not be blank.
 vatClass: This value should be either 6 or 21.',
         ]);
+    }
+
+    public function testGetProduct(): void
+    {
+        $response = static::createClient()->request('GET', '/api/products/0672201000037');
+
+        self::assertResponseIsSuccessful();
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+
+        self::assertJsonContains([
+            '@context' => '/api/contexts/Product',
+            '@id' => '/api/products/0672201000037',
+            '@type' => 'Product',
+            'barcode' => '0672201000037',
+            'name' => 'Jacobs Cronat Gold Instant Coffee 200g',
+            'cost' => '12.02',
+            'vatClass' => 6,
+        ]);
+
+        self::assertRegExp('~^/api/products/\d+$~', $response->toArray()['@id']);
+        self::assertMatchesResourceItemJsonSchema(Product::class);
     }
 }
