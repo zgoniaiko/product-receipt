@@ -77,6 +77,24 @@ class ReceiptsTest extends ApiTestCase
         self::assertMatchesResourceItemJsonSchema(Receipt::class);
     }
 
+    public function testReceiptProductAmount(): void
+    {
+        $response = static::createClient()->request('PUT', '/api/receipts/2/product-amount', ['json' => [
+            'amount' => '3',
+        ]]);
+
+        self::assertResponseStatusCodeSame(200);
+
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertJsonContains([
+             '@context' => '/api/contexts/Receipt',
+             '@type' => 'Receipt',
+             'status' => 'open',
+        ]);
+        self::assertRegExp('~^/api/receipts/\d+$~', $response->toArray()['@id']);
+        self::assertMatchesResourceItemJsonSchema(Receipt::class);
+    }
+
     public function testFihishReceipt(): void
     {
         $response = static::createClient()->request('PUT', '/api/receipts/2/finish', ['json' => [

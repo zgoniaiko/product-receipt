@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\ReceiptFinish;
 use App\Controller\ReceiptProductAdd;
+use App\Controller\ReceiptProductAmount;
 use App\Repository\ReceiptRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,6 +25,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "method"="PUT",
  *         "path"="/receipts/{id}/add-product",
  *         "controller"=ReceiptProductAdd::class,
+ *     },
+ *     "product_amount"={
+ *         "method"="PUT",
+ *         "path"="/receipts/{id}/product-amount",
+ *         "controller"=ReceiptProductAmount::class,
  *     }},
  *     normalizationContext={"groups"={"read"}},
  * )
