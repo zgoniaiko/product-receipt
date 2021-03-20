@@ -9,17 +9,15 @@ class ProductTest extends TestCase
 {
     public function testAccessors(): void
     {
-        $product = new Product();
+        $barcode = '0123456789123';
+        $product = new Product($barcode);
+
+        self::assertSame($barcode, $product->getBarcode(), "should return product barcode");
 
         $name = 'Product name';
         self::assertSame('', $product->getName(), "product name should be empty string");
         $product->setName($name);
         self::assertSame($name, $product->getName(), "should return product name");
-
-        $barcode = '0123456789123';
-        self::assertSame('', $product->getBarcode(), "product barcode should be empty string");
-        $product->setBarcode($barcode);
-        self::assertSame($barcode, $product->getBarcode(), "should return product barcode");
 
         $cost = 1.01;
         self::assertEquals(0, $product->getCost(), "product cost should be 0");

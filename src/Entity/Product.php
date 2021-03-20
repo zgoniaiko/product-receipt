@@ -14,15 +14,10 @@ class Product
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\Column(type="bigint")
      */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=13)
-     */
-    private $barcode = '';
+    private $barcode;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,21 +34,14 @@ class Product
      */
     private $vatClass = 0;
 
-    public function getId(): ?int
+    public function __construct(int $barcode)
     {
-        return $this->id;
+        $this->barcode = $barcode;
     }
 
     public function getBarcode(): ?string
     {
-        return $this->barcode;
-    }
-
-    public function setBarcode(string $barcode): self
-    {
-        $this->barcode = $barcode;
-
-        return $this;
+        return sprintf("%013d", $this->barcode);
     }
 
     public function getName(): ?string

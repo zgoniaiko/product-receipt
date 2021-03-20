@@ -27,7 +27,7 @@ class ReceiptProduct
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="barcode", nullable=false)
      */
     private $product;
 

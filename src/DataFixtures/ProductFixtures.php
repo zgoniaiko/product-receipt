@@ -14,22 +14,19 @@ class ProductFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $tea = (new Product())
-            ->setBarcode('0780658801111')
+        $tea = (new Product('0780658801111'))
             ->setName('Dilmah Premium 100% Pure Ceylon Tea, 100-Count Tea Bags (Pack of 3)')
             ->setCost(28.99)
             ->setVatClass(6);
         $manager->persist($tea);
 
-        $coffee = (new Product())
-            ->setBarcode('0672201000037')
+        $coffee = (new Product('0672201000037'))
             ->setName('Jacobs Cronat Gold Instant Coffee 200g')
             ->setCost(12.02)
             ->setVatClass(6);
         $manager->persist($coffee);
 
-        $cup = (new Product())
-            ->setBarcode('0026102689783')
+        $cup = (new Product('0026102689783'))
             ->setName('Luminarc White 29cl Trianon Tea Coffee Mug Serveware Kitchen')
             ->setCost(6.01)
             ->setVatClass(21);
