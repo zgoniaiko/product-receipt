@@ -1,0 +1,7 @@
+App\Entity\Receipt:
+
+  receipt_open:
+    status: open
+
+  receipt_finished:
+    status: finished

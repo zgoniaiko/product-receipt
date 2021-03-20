@@ -34,9 +34,9 @@ class Product
      */
     private $vatClass = 0;
 
-    public function __construct(int $barcode)
+    public function __construct(string $barcode)
     {
-        $this->barcode = $barcode;
+        $this->barcode = (int)$barcode;
     }
 
     public function getBarcode(): ?string

@@ -1,0 +1,13 @@
+App\Entity\ReceiptProduct:
+
+  finishedTea:
+    __construct: ["@receipt_finished", "@tea"]
+    amount: 2
+
+  openCoffee:
+    __construct: ["@receipt_open", "@coffee"]
+    amount: 1
+
+  openCup:
+    __construct: ["@receipt_open", "@cup"]
+    amount: 2

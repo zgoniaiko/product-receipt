@@ -1,0 +1,19 @@
+App\Entity\Product:
+
+  tea:
+    __construct: ["0780658801111"]
+    name: Dilmah Premium 100% Pure Ceylon Tea, 100-Count Tea Bags (Pack of 3)
+    cost: 28.99
+    vatClass: 6
+
+  coffee:
+    __construct: ["0672201000037"]
+    name: Jacobs Cronat Gold Instant Coffee 200g
+    cost: 12.02
+    vatClass: 6
+
+  cup:
+    __construct: ["0026102689783"]
+    name: Luminarc White 29cl Trianon Tea Coffee Mug Serveware Kitchen
+    cost: 6.01
+    vatClass: 21
