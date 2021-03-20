@@ -42,7 +42,6 @@ class Receipt
 
     /**
      * @Groups("read")
-     * @ApiSubresource
      * @ORM\OneToMany(targetEntity=ReceiptProduct::class, mappedBy="receipt", orphanRemoval=true)
      */
     private $receiptProducts;
