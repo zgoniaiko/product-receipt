@@ -2,17 +2,18 @@
 
 namespace App\Tests\Api;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Product;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use App\Tests\AbstractTest;
 
-class ProductsTest extends ApiTestCase
+class ProductsTest extends AbstractTest
 {
-    use RefreshDatabaseTrait;
-
     public function testGetCollection(): void
     {
-        $response = static::createClient()->request('GET', '/api/products');
+        $token = $this->getToken([
+            'email' => 'admin@example.com',
+            'password' => 'admin',
+        ]);
+        $response = $this->createClientWithCredentials($token)->request('GET', '/api/products');
 
         self::assertResponseIsSuccessful();
         self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
@@ -30,7 +31,11 @@ class ProductsTest extends ApiTestCase
 
     public function testCreateProduct(): void
     {
-        $response = static::createClient()->request('POST', '/api/products', ['json' => [
+        $token = $this->getToken([
+            'email' => 'admin@example.com',
+            'password' => 'admin',
+        ]);
+        $response = $this->createClientWithCredentials($token)->request('POST', '/api/products', ['json' => [
             'barcode' => '0123456789123',
             'name' => 'Test product',
             'cost' => '10.01',
@@ -53,7 +58,11 @@ class ProductsTest extends ApiTestCase
 
     public function testCreateInvalidProduct(): void
     {
-        static::createClient()->request('POST', '/api/products', ['json' => [
+        $token = $this->getToken([
+            'email' => 'admin@example.com',
+            'password' => 'admin',
+        ]);
+        $this->createClientWithCredentials($token)->request('POST', '/api/products', ['json' => [
             'barcode' => 'invalid',
             'vatClass' => 20,
         ]]);
@@ -72,7 +81,7 @@ vatClass: This value should be either 6 or 21.',
 
     public function testGetProduct(): void
     {
-        $response = static::createClient()->request('GET', '/api/products/0672201000037');
+        $response = $this->createClientWithCredentials()->request('GET', '/api/products/0672201000037');
 
         self::assertResponseIsSuccessful();
         self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');

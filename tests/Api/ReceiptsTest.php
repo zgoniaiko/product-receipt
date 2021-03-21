@@ -2,17 +2,14 @@
 
 namespace App\Tests\Api;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Receipt;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use App\Tests\AbstractTest;
 
-class ReceiptsTest extends ApiTestCase
+class ReceiptsTest extends AbstractTest
 {
-    use RefreshDatabaseTrait;
-
     public function testCreateReceipt(): void
     {
-        $response = static::createClient()->request('POST', '/api/receipts', ['json' => [
+        $response = $this->createClientWithCredentials()->request('POST', '/api/receipts', ['json' => [
             'status' => 'open',
         ]]);
 
@@ -29,7 +26,7 @@ class ReceiptsTest extends ApiTestCase
 
     public function testCreateEmptyStatusReceipt(): void
     {
-        $response = static::createClient()->request('POST', '/api/receipts', ['json' => [
+        $response = $this->createClientWithCredentials()->request('POST', '/api/receipts', ['json' => [
         ]]);
 
         self::assertResponseStatusCodeSame(201);
@@ -45,7 +42,7 @@ class ReceiptsTest extends ApiTestCase
 
     public function testCreateInvalidReceipt(): void
     {
-        static::createClient()->request('POST', '/api/receipts', ['json' => [
+        $this->createClientWithCredentials()->request('POST', '/api/receipts', ['json' => [
             'status' => 'invalid',
         ]]);
 
@@ -61,7 +58,7 @@ class ReceiptsTest extends ApiTestCase
 
     public function testReceiptAddProduct(): void
     {
-        $response = static::createClient()->request('PUT', '/api/receipts/2/add-product', ['json' => [
+        $response = $this->createClientWithCredentials()->request('PUT', '/api/receipts/2/add-product', ['json' => [
             'barcode' => '0026102689783',
         ]]);
 
@@ -79,7 +76,7 @@ class ReceiptsTest extends ApiTestCase
 
     public function testReceiptProductAmount(): void
     {
-        $response = static::createClient()->request('PUT', '/api/receipts/2/product-amount', ['json' => [
+        $response = $this->createClientWithCredentials()->request('PUT', '/api/receipts/2/product-amount', ['json' => [
             'amount' => '3',
         ]]);
 
@@ -97,7 +94,7 @@ class ReceiptsTest extends ApiTestCase
 
     public function testFihishReceipt(): void
     {
-        $response = static::createClient()->request('PUT', '/api/receipts/2/finish', ['json' => [
+        $response = $this->createClientWithCredentials()->request('PUT', '/api/receipts/2/finish', ['json' => [
         ]]);
 
         self::assertResponseStatusCodeSame(200);

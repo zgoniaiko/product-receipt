@@ -42,6 +42,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     }},
  *     collectionOperations={"post"},
  *     normalizationContext={"groups"={"read"}},
+ *     attributes={"security"="is_granted('ROLE_USER')"}
  * )
  * @ORM\Entity(repositoryClass=ReceiptRepository::class)
  */
