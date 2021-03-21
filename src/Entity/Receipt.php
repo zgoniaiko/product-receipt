@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "path"="/receipts/{id}/finish",
  *         "controller"=ReceiptFinish::class,
  *         "openapi_context"={
- *             "summary"="Make receipt finished"
+ *             "summary"="Make receipt finished."
  *         }
  *     },
  *     "product_add"={
@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "path"="/receipts/{id}/add-product",
  *         "controller"=ReceiptProductAdd::class,
  *         "openapi_context"={
- *             "summary"="Add product to receipt"
+ *             "summary"="Add product to receipt."
  *         }
  *     },
  *     "product_amount"={
@@ -37,7 +37,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "path"="/receipts/{id}/product-amount",
  *         "controller"=ReceiptProductAmount::class,
  *         "openapi_context"={
- *             "summary"="Set amount of last added product for receipt"
+ *             "summary"="Set amount of last added product for receipt."
  *         }
  *     }},
  *     collectionOperations={"post"},
