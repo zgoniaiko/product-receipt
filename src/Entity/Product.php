@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
+ * @ApiResource(itemOperations={
+ *     "get",
+ * })
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
 class Product

@@ -20,17 +20,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "method"="PUT",
  *         "path"="/receipts/{id}/finish",
  *         "controller"=ReceiptFinish::class,
+ *         "openapi_context"={
+ *             "summary"="Make receipt finished"
+ *         }
  *     },
  *     "product_add"={
  *         "method"="PUT",
  *         "path"="/receipts/{id}/add-product",
  *         "controller"=ReceiptProductAdd::class,
+ *         "openapi_context"={
+ *             "summary"="Add product to receipt"
+ *         }
  *     },
  *     "product_amount"={
  *         "method"="PUT",
  *         "path"="/receipts/{id}/product-amount",
  *         "controller"=ReceiptProductAmount::class,
+ *         "openapi_context"={
+ *             "summary"="Set amount of last added product for receipt"
+ *         }
  *     }},
+ *     collectionOperations={"post"},
  *     normalizationContext={"groups"={"read"}},
  * )
  * @ORM\Entity(repositoryClass=ReceiptRepository::class)
