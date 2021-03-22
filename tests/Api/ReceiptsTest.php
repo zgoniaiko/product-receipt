@@ -108,4 +108,26 @@ class ReceiptsTest extends AbstractTest
         self::assertRegExp('~^/api/receipts/\d+$~', $response->toArray()['@id']);
         self::assertMatchesResourceItemJsonSchema(Receipt::class);
     }
+
+    /**
+     * @dataProvider urlProvider
+     */
+    public function testAnonymousAccessRestricted(string $method, string $url): void
+    {
+        static::createClient()->request($method, $url, ['json' => [
+        ]]);
+
+        self::assertResponseStatusCodeSame(401);
+    }
+
+    public function urlProvider(): array
+    {
+       return [
+           ['POST', '/api/receipts'],
+           ['GET', '/api/receipts/2'],
+           ['PUT', '/api/receipts/2/add-product'],
+           ['PUT', '/api/receipts/2/product-amount'],
+           ['PUT', '/api/receipts/2/finish'],
+       ];
+    }
 }

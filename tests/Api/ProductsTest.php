@@ -99,4 +99,24 @@ vatClass: This value should be either 6 or 21.',
         self::assertRegExp('~^/api/products/\d+$~', $response->toArray()['@id']);
         self::assertMatchesResourceItemJsonSchema(Product::class);
     }
+
+    /**
+     * @dataProvider urlProvider
+     */
+    public function testAnonymousAccessRestricted(string $method, string $url): void
+    {
+        static::createClient()->request($method, $url, ['json' => [
+        ]]);
+
+        self::assertResponseStatusCodeSame(401);
+    }
+
+    public function urlProvider(): array
+    {
+        return [
+            ['GET', '/api/products'],
+            ['POST', '/api/products'],
+            ['GET', '/api/products/0672201000037'],
+        ];
+    }
 }
